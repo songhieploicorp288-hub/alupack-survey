@@ -677,6 +677,7 @@
 
         document.getElementById('quantity').value = '';
         document.getElementById('note').value = '';
+
         if (productType === 'Chai nhôm') {
           document.getElementById('capType').value = '';
           document.getElementById('colorType').value = '';
@@ -918,36 +919,30 @@
 
           const response = await fetch(API_URL, {
             method: 'POST',
-            redirect: 'follow',
             headers: {
               'Content-Type': 'text/plain;charset=utf-8'
             },
             body: JSON.stringify(payload)
           });
 
-          const rawText = await response.text();
-          console.log('[ALUPACK] HTTP status:', response.status);
-          console.log('[ALUPACK] Raw response:', rawText);
+          const text = await response.text();
+          console.log('[ALUPACK] RAW RESPONSE:', text);
 
-          let data;
+          let result;
           try {
-            data = JSON.parse(rawText);
-          } catch (parseError) {
-            throw new Error('Backend trả về dữ liệu không phải JSON hợp lệ.');
+            result = JSON.parse(text);
+          } catch (e) {
+            throw new Error('Backend không trả JSON hợp lệ: ' + text);
           }
 
-          if (!response.ok) {
-            throw new Error(data.message || ('HTTP ' + response.status));
+          if (!result.ok) {
+            throw new Error(result.message || 'Có lỗi xảy ra khi gửi dữ liệu.');
           }
 
-          if (!data.ok) {
-            throw new Error(data.message || 'Không gửi được dữ liệu tới máy chủ.');
-          }
-
-          renderSuccess(data, payload);
-        } catch (error) {
-          console.error('[ALUPACK] submitAll error:', error);
-          setStatus(error.message || 'Không gửi được dữ liệu tới máy chủ.', 'error');
+          renderSuccess(result, payload);
+        } catch (err) {
+          console.error('[ALUPACK] submitAll error:', err);
+          setStatus('Lỗi gửi dữ liệu: ' + err.message, 'error');
         } finally {
           if (submitBtn) submitBtn.disabled = false;
         }
