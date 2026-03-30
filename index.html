@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>ALUPACK - ALUMINUM PACKAGING</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f1fb;
+        color: #222;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 34px;
+        line-height: 1.2;
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: 28px;
+        line-height: 1.25;
+      }
+
+      h3 {
+        margin: 0 0 12px;
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0 0 10px;
+        line-height: 1.5;
+      }
+
+      .muted {
+        color: #666;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .small {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        width: 100%;
+        font-family: inherit;
+      }
+
+      input,
+      select,
+      textarea {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: #fff;
+        padding: 12px 14px;
+        font-size: 16px;
+      }
+
+      input,
+      select {
+        min-height: 48px;
+      }
+
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr 1.3fr 1.3fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .sub-field {
+        margin-top: 12px;
+      }
+
+      .row-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: none;
+        border-radius: 10px;
+        min-height: 48px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: #6f42c1;
+        color: #fff;
+      }
+
+      .btn-secondary {
+        background: #ece7fa;
+        color: #4f2ba8;
+      }
+
+      .btn-danger {
+        background: #ffe3e3;
+        color: #b42318;
+        min-height: auto;
+        padding: 10px 12px;
+      }
+
+      .status {
+        margin-top: 10px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .error {
+        color: #b42318;
+      }
+
+      .success {
+        color: #067647;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .pill {
+        display: inline-block;
+        background: #ece7fa;
+        color: #4f2ba8;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .success-box {
+        border: 1px solid #d6bbfb;
+        background: #faf5ff;
+      }
+
+      .desktop-only {
+        display: block;
+      }
+
+      .mobile-only {
+        display: none;
+      }
+
+      .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.45;
+      }
+
+      th {
+        background: #faf8ff;
+      }
+
+      .mobile-item-list,
+      .mobile-success-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .mobile-item-card {
+        border: 1px solid #ece7fa;
+        background: #faf8ff;
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .mobile-item-row {
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 8px;
+        padding: 4px 0;
+        align-items: start;
+      }
+
+      .mobile-item-label {
+        font-size: 12px;
+        color: #666;
+        font-weight: 700;
+      }
+
+      .mobile-item-value {
+        font-size: 14px;
+        line-height: 1.45;
+        word-break: break-word;
+      }
+
+      .mobile-card-actions {
+        margin-top: 10px;
+      }
+
+      .empty-note {
+        color: #666;
+        font-size: 13px;
+      }
+
+      @media (max-width: 900px) {
+        .container {
+          padding: 10px;
+        }
+
+        .card {
+          padding: 14px;
+          margin-bottom: 12px;
+          border-radius: 12px;
+        }
+
+        h1 {
+          font-size: 22px;
+          margin-bottom: 8px;
+        }
+
+        h2 {
+          font-size: 18px;
+          margin-bottom: 12px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        .muted {
+          font-size: 14px;
+        }
+
+        .grid-2,
+        .grid-4 {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        label {
+          font-size: 13px;
+          margin-bottom: 4px;
+        }
+
+        input,
+        select,
+        textarea {
+          font-size: 15px;
+          padding: 10px 12px;
+          border-radius: 8px;
+        }
+
+        input,
+        select {
+          min-height: 42px;
+        }
+
+        textarea {
+          min-height: 90px;
+        }
+
+        .row-actions {
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 12px;
+        }
+
+        button {
+          min-height: 42px;
+          font-size: 15px;
+          border-radius: 8px;
+        }
+
+        .desktop-only {
+          display: none;
+        }
+
+        .mobile-only {
+          display: block;
+        }
+
+        .mobile-item-card {
+          border-radius: 10px;
+          padding: 10px;
+        }
+
+        .mobile-item-row {
+          grid-template-columns: 84px 1fr;
+          gap: 6px;
+        }
+
+        .mobile-item-label {
+          font-size: 11px;
+        }
+
+        .mobile-item-value {
+          font-size: 13px;
+          line-height: 1.35;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="formView">
+        <div class="card">
+          <h1>ALUPACK - ALUMINUM PACKAGING</h1>
+          <div class="muted">
+            Khảo sát nhu cầu bao bì nhôm. Quý khách có thể add nhiều quy cách trong một lần gửi.
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Thông tin doanh nghiệp</h2>
+
+          <div class="grid-2">
+            <div>
+              <label for="companyName">Tên công ty</label>
+              <input id="companyName" type="text" required />
+            </div>
+
+            <div>
+              <label for="contactName">Người liên hệ</label>
+              <input id="contactName" type="text" required />
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email" required />
+              <div class="small">Ví dụ: tencongty@domain.com</div>
+            </div>
+
+            <div>
+              <label for="phone">Số điện thoại</label>
+              <input id="phone" type="tel" inputmode="numeric" maxlength="10" placeholder="0xxxxxxxxx" required />
+              <div class="small">10 số, bắt đầu bằng 0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Thêm quy cách</h2>
+
+          <div class="grid-4">
+            <div>
+              <label for="productType">Loại sản phẩm</label>
+              <select id="productType"></select>
+            </div>
+
+            <div>
+              <label for="month">Tháng</label>
+              <select id="month"></select>
+            </div>
+
+            <div>
+              <label for="spec">Quy cách</label>
+              <select id="spec"></select>
+            </div>
+
+            <div id="variantWrap" class="hidden">
+              <label for="capType">Loại nắp</label>
+              <select id="capType"></select>
+
+              <div class="sub-field">
+                <label for="colorType">Màu chai</label>
+                <select id="colorType"></select>
+              </div>
+
+              <div class="sub-field">
+                <label for="liningType">Phun trong</label>
+                <select id="liningType"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top: 14px;">
+            <div>
+              <label for="quantity">Số lượng</label>
+              <input id="quantity" type="number" min="1" step="1" required />
+            </div>
+
+            <div>
+              <label for="note">Ghi chú thêm</label>
+              <textarea id="note"></textarea>
+            </div>
+          </div>
+
+          <div class="row-actions">
+            <button class="btn-secondary" type="button" onclick="addItem()">Add quy cách</button>
+            <button class="btn-primary" type="button" onclick="submitAll()">Gửi khảo sát</button>
+          </div>
+
+          <div id="formStatus" class="status"></div>
+        </div>
+
+        <div class="card">
+          <h2>Danh sách quy cách đã add</h2>
+
+          <div class="desktop-only">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Loại sản phẩm</th>
+                    <th>Tháng</th>
+                    <th>Quy cách</th>
+                    <th>Loại nắp</th>
+                    <th>Màu chai</th>
+                    <th>Phun trong</th>
+                    <th>Số lượng</th>
+                    <th>Ghi chú</th>
+                    <th>Xóa</th>
+                  </tr>
+                </thead>
+                <tbody id="itemsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mobile-only">
+            <div id="mobileItems" class="mobile-item-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="successView" class="hidden">
+        <div class="card success-box">
+          <span class="pill">Gửi thành công</span>
+          <h2 style="margin-top: 0;">Cảm ơn Quý khách đã gửi khảo sát cho ALUPACK</h2>
+          <p>Chúng tôi đã ghi nhận thông tin thành công và đã gửi email xác nhận về hộp thư Quý khách.</p>
+          <div id="successContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = 'DAN_URL_APPS_SCRIPT_WEB_APP_O_DAY';
+
+      const CONFIG = {
+        bottleSpecs: [
+          '100ml | Ø40 × 110 mm',
+          '100ml | Ø50 × 100 mm',
+          '250ml | Ø55 × 153 mm',
+          '250ml | Ø55 × 158 mm',
+          '500ml | Ø65 × 200 mm',
+          '500ml | Ø74 × 185 mm',
+          '1000ml | Ø88 × 220 mm',
+          '1000ml | Ø88 × 240 mm'
+        ],
+        tubeSpecs: [
+          'Phi 16',
+          'Phi 19',
+          'Phi 22',
+          'Phi 25',
+          'Phi 26.5',
+          'Phi 28',
+          'Phi 32'
+        ],
+        bottleCapTypes: ['VRT (nắp nhôm)', 'VRN (nắp trắng)'],
+        bottleColorTypes: ['Chai bạc', 'Chai màu'],
+        bottleLiningTypes: ['Có phun trong', 'Không phun trong'],
+        months: [1,2,3,4,5,6,7,8,9,10,11,12]
+      };
+
+      let items = [];
+
+      function setStatus(message, type) {
+        const el = document.getElementById('formStatus');
+        el.textContent = message || '';
+        el.className = 'status ' + (type || '');
+      }
+
+      function fillSelect(selectId, values, placeholder) {
+        const select = document.getElementById(selectId);
+        select.innerHTML = '';
+
+        const first = document.createElement('option');
+        first.value = '';
+        first.textContent = placeholder || 'Chọn';
+        select.appendChild(first);
+
+        values.forEach(value => {
+          const opt = document.createElement('option');
+          opt.value = value;
+          opt.textContent = value;
+          select.appendChild(opt);
+        });
+      }
+
+      function updateSpecAndVariant() {
+        const productType = document.getElementById('productType').value;
+        const variantWrap = document.getElementById('variantWrap');
+
+        if (productType === 'Chai nhôm') {
+          fillSelect('spec', CONFIG.bottleSpecs, 'Chọn quy cách chai');
+          fillSelect('capType', CONFIG.bottleCapTypes, 'Chọn loại nắp');
+          fillSelect('colorType', CONFIG.bottleColorTypes, 'Chọn màu chai');
+          fillSelect('liningType', CONFIG.bottleLiningTypes, 'Chọn phun trong');
+          variantWrap.classList.remove('hidden');
+        } else if (productType === 'Tuýp nhôm') {
+          fillSelect('spec', CONFIG.tubeSpecs, 'Chọn quy cách tuýp');
+          fillSelect('capType', [], 'Chọn loại nắp');
+          fillSelect('colorType', [], 'Chọn màu chai');
+          fillSelect('liningType', [], 'Chọn phun trong');
+          variantWrap.classList.add('hidden');
+        } else {
+          fillSelect('spec', [], 'Chọn quy cách');
+          fillSelect('capType', [], 'Chọn loại nắp');
+          fillSelect('colorType', [], 'Chọn màu chai');
+          fillSelect('liningType', [], 'Chọn phun trong');
+          variantWrap.classList.add('hidden');
+        }
+      }
+
+      function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function validatePhone(phone) {
+        return /^0\d{9}$/.test(phone);
+      }
+
+      function saveProfileToCache() {
+        const profile = {
+          companyName: document.getElementById('companyName').value.trim(),
+          contactName: document.getElementById('contactName').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim()
+        };
+        localStorage.setItem('alupack_profile', JSON.stringify(profile));
+      }
+
+      function loadProfileFromCache() {
+        const raw = localStorage.getItem('alupack_profile');
+        if (!raw) return;
+
+        try {
+          const profile = JSON.parse(raw);
+          document.getElementById('companyName').value = profile.companyName || '';
+          document.getElementById('contactName').value = profile.contactName || '';
+          document.getElementById('email').value = profile.email || '';
+          document.getElementById('phone').value = profile.phone || '';
+        } catch (e) {}
+      }
+
+      function addProfileListeners() {
+        ['companyName', 'contactName', 'email', 'phone'].forEach(id => {
+          document.getElementById(id).addEventListener('input', saveProfileToCache);
+        });
+      }
+
+      function addItem() {
+        setStatus('', '');
+
+        const productType = document.getElementById('productType').value;
+        const month = document.getElementById('month').value;
+        const spec = document.getElementById('spec').value;
+        const capType = document.getElementById('capType').value;
+        const colorType = document.getElementById('colorType').value;
+        const liningType = document.getElementById('liningType').value;
+        const quantity = document.getElementById('quantity').value;
+        const note = document.getElementById('note').value.trim();
+
+        if (!productType) {
+          setStatus('Vui lòng chọn loại sản phẩm.', 'error');
+          return;
+        }
+
+        if (!month) {
+          setStatus('Vui lòng chọn tháng.', 'error');
+          return;
+        }
+
+        if (!spec) {
+          setStatus('Vui lòng chọn quy cách.', 'error');
+          return;
+        }
+
+        if (productType === 'Chai nhôm' && !capType) {
+          setStatus('Vui lòng chọn loại nắp của chai.', 'error');
+          return;
+        }
+
+        if (productType === 'Chai nhôm' && !colorType) {
+          setStatus('Vui lòng chọn màu chai.', 'error');
+          return;
+        }
+
+        if (productType === 'Chai nhôm' && !liningType) {
+          setStatus('Vui lòng chọn phun trong.', 'error');
+          return;
+        }
+
+        if (!quantity || Number(quantity) <= 0) {
+          setStatus('Số lượng phải lớn hơn 0.', 'error');
+          return;
+        }
+
+        items.push({
+          productType,
+          month: Number(month),
+          spec,
+          capType: productType === 'Chai nhôm' ? capType : '',
+          colorType: productType === 'Chai nhôm' ? colorType : '',
+          liningType: productType === 'Chai nhôm' ? liningType : '',
+          quantity: Number(quantity),
+          note
+        });
+
+        renderItems();
+
+        document.getElementById('quantity').value = '';
+        document.getElementById('note').value = '';
+        if (productType === 'Chai nhôm') {
+          document.getElementById('capType').value = '';
+          document.getElementById('colorType').value = '';
+          document.getElementById('liningType').value = '';
+        }
+
+        setStatus('Đã add quy cách.', 'success');
+      }
+
+      function removeItem(index) {
+        items.splice(index, 1);
+        renderItems();
+      }
+
+      function renderItems() {
+        const tbody = document.getElementById('itemsBody');
+        const mobileItems = document.getElementById('mobileItems');
+
+        tbody.innerHTML = '';
+        mobileItems.innerHTML = '';
+
+        if (items.length === 0) {
+          mobileItems.innerHTML = '<div class="empty-note">Chưa có quy cách nào được add.</div>';
+          return;
+        }
+
+        items.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${escapeHtml(item.productType)}</td>
+            <td>${item.month}</td>
+            <td>${escapeHtml(item.spec)}</td>
+            <td>${escapeHtml(item.capType || '')}</td>
+            <td>${escapeHtml(item.colorType || '')}</td>
+            <td>${escapeHtml(item.liningType || '')}</td>
+            <td>${item.quantity}</td>
+            <td>${escapeHtml(item.note || '')}</td>
+            <td><button type="button" class="btn-danger" onclick="removeItem(${index})">Xóa</button></td>
+          `;
+          tbody.appendChild(tr);
+
+          const card = document.createElement('div');
+          card.className = 'mobile-item-card';
+          card.innerHTML = `
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Loại SP</div>
+              <div class="mobile-item-value">${escapeHtml(item.productType)}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Tháng</div>
+              <div class="mobile-item-value">${item.month}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Quy cách</div>
+              <div class="mobile-item-value">${escapeHtml(item.spec)}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Loại nắp</div>
+              <div class="mobile-item-value">${escapeHtml(item.capType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Màu chai</div>
+              <div class="mobile-item-value">${escapeHtml(item.colorType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Phun trong</div>
+              <div class="mobile-item-value">${escapeHtml(item.liningType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Số lượng</div>
+              <div class="mobile-item-value">${item.quantity}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Ghi chú</div>
+              <div class="mobile-item-value">${escapeHtml(item.note || '')}</div>
+            </div>
+            <div class="mobile-card-actions">
+              <button type="button" class="btn-danger" onclick="removeItem(${index})">Xóa</button>
+            </div>
+          `;
+          mobileItems.appendChild(card);
+        });
+      }
+
+      function renderSuccess(res, payload) {
+        document.getElementById('formView').classList.add('hidden');
+        document.getElementById('successView').classList.remove('hidden');
+
+        const desktopRows = payload.items.map((item, index) => `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${escapeHtml(item.productType)}</td>
+            <td>${item.month}</td>
+            <td>${escapeHtml(item.spec)}</td>
+            <td>${escapeHtml(item.capType || '')}</td>
+            <td>${escapeHtml(item.colorType || '')}</td>
+            <td>${escapeHtml(item.liningType || '')}</td>
+            <td>${item.quantity}</td>
+            <td>${escapeHtml(item.note || '')}</td>
+          </tr>
+        `).join('');
+
+        const mobileRows = payload.items.map((item, index) => `
+          <div class="mobile-item-card">
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">#</div>
+              <div class="mobile-item-value">${index + 1}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Loại SP</div>
+              <div class="mobile-item-value">${escapeHtml(item.productType)}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Tháng</div>
+              <div class="mobile-item-value">${item.month}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Quy cách</div>
+              <div class="mobile-item-value">${escapeHtml(item.spec)}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Loại nắp</div>
+              <div class="mobile-item-value">${escapeHtml(item.capType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Màu chai</div>
+              <div class="mobile-item-value">${escapeHtml(item.colorType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Phun trong</div>
+              <div class="mobile-item-value">${escapeHtml(item.liningType || '')}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Số lượng</div>
+              <div class="mobile-item-value">${item.quantity}</div>
+            </div>
+            <div class="mobile-item-row">
+              <div class="mobile-item-label">Ghi chú</div>
+              <div class="mobile-item-value">${escapeHtml(item.note || '')}</div>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('successContent').innerHTML = `
+          <p><strong>Mã gửi khảo sát:</strong> ${escapeHtml(res.submissionId || '')}</p>
+          <p><strong>Tên công ty:</strong> ${escapeHtml(payload.companyName)}</p>
+          <p><strong>Người liên hệ:</strong> ${escapeHtml(payload.contactName)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
+          <p><strong>Điện thoại:</strong> ${escapeHtml(payload.phone)}</p>
+
+          <h3>Danh sách dữ liệu đã gửi</h3>
+
+          <div class="desktop-only">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Tháng</th>
+                    <th>Quy cách</th>
+                    <th>Loại nắp</th>
+                    <th>Màu chai</th>
+                    <th>Phun trong</th>
+                    <th>Số lượng</th>
+                    <th>Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody>${desktopRows}</tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mobile-only">
+            <div class="mobile-success-list">${mobileRows}</div>
+          </div>
+        `;
+      }
+
+      function escapeHtml(text) {
+        return String(text || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      async function submitAll() {
+        setStatus('', '');
+
+        const companyName = document.getElementById('companyName').value.trim();
+        const contactName = document.getElementById('contactName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+
+        if (!companyName) {
+          setStatus('Vui lòng nhập Tên công ty.', 'error');
+          return;
+        }
+
+        if (!contactName) {
+          setStatus('Vui lòng nhập Người liên hệ.', 'error');
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          setStatus('Email không đúng định dạng.', 'error');
+          return;
+        }
+
+        if (!validatePhone(phone)) {
+          setStatus('Số điện thoại phải gồm 10 số và bắt đầu bằng 0.', 'error');
+          return;
+        }
+
+        if (items.length === 0) {
+          setStatus('Bạn chưa add quy cách nào.', 'error');
+          return;
+        }
+
+        saveProfileToCache();
+
+        const payload = {
+          companyName,
+          contactName,
+          email,
+          phone,
+          items
+        };
+
+        setStatus('Đang gửi dữ liệu...', '');
+
+        try {
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+
+          if (!data.ok) {
+            setStatus(data.message || 'Có lỗi xảy ra khi gửi dữ liệu.', 'error');
+            return;
+          }
+
+          renderSuccess(data, payload);
+        } catch (error) {
+          setStatus('Không gửi được dữ liệu tới máy chủ.', 'error');
+        }
+      }
+
+      function init() {
+        fillSelect('productType', ['Chai nhôm', 'Tuýp nhôm'], 'Chọn loại sản phẩm');
+        fillSelect('month', CONFIG.months, 'Chọn tháng');
+        fillSelect('spec', [], 'Chọn quy cách');
+        fillSelect('capType', [], 'Chọn loại nắp');
+        fillSelect('colorType', [], 'Chọn màu chai');
+        fillSelect('liningType', [], 'Chọn phun trong');
+
+        document.getElementById('variantWrap').classList.add('hidden');
+        document.getElementById('productType').addEventListener('change', updateSpecAndVariant);
+
+        loadProfileFromCache();
+        addProfileListeners();
+        renderItems();
+      }
+
+      document.addEventListener('DOMContentLoaded', init);
+    </script>
+  </body>
+</html>
