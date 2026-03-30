@@ -941,7 +941,7 @@
           }
 
           if (!data.ok) {
-            throw new Error(data.message || 'Có lỗi xảy ra khi gửi dữ liệu.');
+            throw new Error(data.message || 'Không gửi được dữ liệu tới máy chủ.');
           }
 
           renderSuccess(data, payload);
